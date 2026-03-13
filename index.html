@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<html>
+  <title>LightSky VR</title>
+  <meta name="lightskyVR" content="A VR Light Pollution App">
+  <script src="assets/aframe.min.js"></script>
+  <script src="assets/aframe-extras.min.js"></script>
+  <script src="assets/aframe-environment-component.min.js"></script>
+  <script src="assets/aframe-html-shader.min.js"></script>
+</head>
+<body>
+ 
+      
+  <a-scene fog="type: exponential; color: #FFFFFF; density: 0.00;" scene-manager>
+    <a-assets>
+      <!-- General -->
+      <img id="info_default" src="assets/default_vr.png">
+      <audio id="click-sound" src="assets/click.wav" preload="auto"></audio>
+      <img id="start-screen" src="assets/Start2.png">
+      <img id="start_bg" src="assets/Start_bg.jpg">
+      
+      <!-- Loading Screens Info Boards -->
+      <img id="laden-gif" src="assets/laden.gif">
+      <img id="loading-screen-1" src="assets/fact1.png">
+      <img id="loading-screen-2" src="assets/fact2.png">
+      <img id="loading-screen-3" src="assets/fact3.png">
+      <img id="loading-screen-4" src="assets/fact4.png">
+      <img id="loading-screen-5" src="assets/fact5.png">
+      <img id="loading-screen-6" src="assets/fact6.png">
+      <img id="loading-screen-7" src="assets/fact7.png">
+      <img id="loading-screen-8" src="assets/fact8.png">
+      <img id="loading-screen-9" src="assets/fact9.png">
+      
+      <!--Atacama Desert-->
+      <img id="ground" src="assets/nahaufnahme-mischung-von-tonpulver.jpg">
+      <img id="stars" src="assets/atacama_sky.jpg">
+      <img id="pollution_atacama" src="assets/lightpollution_texture.png">
+      <img id="info_atacama" src="assets/Atacama_info_vr.png">
+      <a-asset-item id="llama" response-type="arraybuffer" src="assets/Llama_Animations.glb" preload="auto"></a-asset-item>
+      <audio id="dune_sound" src="assets/sound_dunes2.mp3" preload="auto"></audio>
+      <audio id="llama_sound" src="assets/footsteps-dirt-01-73777.mp3" preload="auto"></audio>
+      
+      
+      
+      <!--Münchberg-->
+      <img id="sky_mueb" src="assets/mueb_sky2.jpg">
+      <img id="info_mueb" src="assets/Muenchberg_info_vr.png">
+      <img id="hills_mueb" src="assets/muenchberg_back2.png">
+      <img id="pollution_mueb" src="assets/pollution_ny.png">
+      <a-asset-item id="ground_mueb" src="assets/muenchberg_test6.glb"></a-asset-item>
+      <a-asset-item id="windturbine" src="assets/windturbine.glb"></a-asset-item>
+      <audio id="sound_mueb" src="assets/sound_mueb2.mp3" preload="auto"></audio>
+      
+      
+      
+      <!--Alps-->
+      <img id="sky_alps" src="assets/alpen_sky.jpg">
+      <img id="info_alps" src="assets/Alpen_info_vr.png">
+      <img id="pollution_alps" src="assets/lightpollution_texture.png">
+      <a-asset-item id="ground_alps" src="assets/rural4.glb"></a-asset-item>
+      <img id="mountains" src="assets/alpen10.png">
+      <img id="mountain_lights" src="assets/alpen_lights2.png">
+      <audio id="sound_alps" src="assets/sound_alps3.mp3" preload="auto"></audio>
+      
+      
+      <!--New York-->
+      <img id="sky_ny" src="assets/NYC_sky.jpg">
+      <img id="pollution_ny" src="assets/pollution_ny.png">
+      <img id="info_ny" src="assets/NYC_info_vr.png">
+      <img id="ny_buildings" src="assets/nyc_buildings5.png">
+      <a-asset-item id="ground_ny" src="assets/NYC8.glb"></a-asset-item>
+      <audio id="sound_ny" src="assets/sound_ny2.mp3" preload="auto"></audio>
+      
+      
+      <!--Hiroshima-->
+      <img id="sky_hiro" src="assets/hiro_sky.jpg">
+      <img id="info_hiro" src="assets/Hiroshima_info_vr.png">
+      <img id="pollution_hiro" src="assets/pollution_ny.png">
+      <a-asset-item id="ground_hiro" src="assets/Hiroshima2.glb"></a-asset-item>
+      <audio id="sound_hiro" src="assets/sound_hiro2.mp3" preload="auto"></audio>
+      
+      
+    </a-assets>
+    
+    
+    <!-- Start Scene -->
+    <a-sphere id="scene-start" color="#000000" position="-500 0 0" rotation="0 0 0" radius="120" material="shader:flat">
+      <a-sky src="#start_bg" rotation="50 0 0" radius="100"></a-sky>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 0; phi: -60; center: 0 0 0" color="#83E8FE" material="shader:flat" change-on-click="target: 750 -7 20" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: -500 0 0" font="kelsonsans" align="center" value="New York" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-image id="start_screen" src="#start-screen" scale="15 18 1" polar-coords="radius: 20; theta: 10; phi: -90; center: 0 0 0" material="shader: flat; transparent: true"></a-image>
+      
+    
+    </a-sphere>
+    
+    
+    <!-- Transition Scene -->
+    <a-sphere id="scene-transition" color="#000000" position="-250 0 0" rotation="0 0 0" radius="20" material="shader:flat">
+      <a-sky src="#start_bg" rotation="50 0 0" radius="100"></a-sky>
+    </a-sphere>
+
+    <!-- Scene Atacama Desert -->
+    <a-sphere id="scene-atacama" src="#stars" position="0 0 0" rotation="0 0 0" radius="100">
+            
+      <!-- Scene -->
+      <a-entity environment="preset: yavapai; groundColor: #000000; groundColor2: #190b01; dressingColor: #190b01; skyType: none; lighting: none;">
+        <a-entity gltf-model="#llama" animation-mixer="clip: Run; loop: repeat; repetitions: Infinity; clampWhenFinished: false; crossFadeDuration: 0; timeScale: 0.2" position="2 0 2" scale="1 1 1" random-walk>
+        <a-entity id="llama-sound" sound="src: #llama_sound; autoplay: true; loop: true; volume: 1;distanceModel: inverse; maxDistance: 20"></a-entity>
+      </a-entity>
+      
+      
+      </a-entity>
+      
+      <a-sky src="#stars" position="0 0 0" rotation="58.27 -121.85 0.04" radius="100"></a-sky>
+      <a-sphere radius="99" position="0 0 0" rotation="0 0 0" material="side:double; transparent:true; shader:flat; " src="#pollution_atacama"></a-sphere>
+      
+      <!-- Transition Spheres -->
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 5; phi: 260; center: 0 0 10" color="#83E8FE" material="shader:flat" change-on-click="target: 500 6 30" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 0 0 10" font="kelsonsans" align="center" value="Alpen" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 5; phi: 320; center: 0 0 10" color="#83E8FE" material="shader:flat" change-on-click="target: 244 2 31" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 0 0 10" font="kelsonsans" align="center" value="Muenchberg" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 5; phi: 290; center: 0 0 10" color="#83E8FE" material="shader:flat" change-on-click="target: 1035 12 -1" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 0 0 10" font="kelsonsans" align="center" value="Hiroshima" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 5; phi: 230; center: 0 0 10" color="#83E8FE" material="shader:flat" change-on-click="target: 750 -7 20" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 0 0 10" font="kelsonsans" align="center" value="New York" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      
+      <!-- Lights and Sound -->
+      <a-entity id="atacama-lights" light="type: ambient; color: #ffffff; intensity: 0.000" position="0 100 100" light-halo></a-entity>
+      <a-entity id="atacama-sound" sound="src: #dune_sound; autoplay: true; loop: true; volume: 0"></a-entity>
+    </a-sphere>
+    
+    
+    <!-- Scene Münchberg -->
+    <a-sphere id="scene-muenchberg" src="#stars" position="250 0 0" rotation="0 0 0" radius="100">
+            
+      <!-- Scene -->
+      <a-entity gltf-model="#ground_mueb" position="-9 -8 30" rotation="0 270 0" scale="0.7 0.7 0.7"></a-entity>
+      <a-entity gltf-model="#windturbine" position="-62 2 -3" rotation="0 70 0" animation-mixer scale="10 10 10" material="shader:flat;"></a-entity>
+      <a-entity gltf-model="#windturbine" position="-75 2 13" rotation="0 70 0" animation-mixer scale="10 10 10"></a-entity>
+      <a-sky src="#sky_mueb" position="0 0 0" rotation="-9 -64.53 47.4" radius="100"></a-sky>
+      <a-sphere radius="99" position="0 0 0" rotation="0 0 0" material="side:double; transparent:true; shader:flat; opacity: 0.3" src="#pollution_mueb"></a-sphere>
+      <a-cylinder radius="90" height="80" position="0 35 0" rotation="0 270 0" open-ended="true" material="side:double; transparent:true; shader:flat; " src="#hills_mueb"></a-cylinder>
+     
+      
+      <!-- Transition Boxes -->
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 228; center: -6 3 31" color="#83E8FE" material="shader:flat" change-on-click="target: 0 0 10" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 244 2 31" font="kelsonsans" align="center" value="Atacama" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 258; center: -6 3 31" color="#83E8FE" material="shader:flat" change-on-click="target: 500 6 30" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 244 2 31" font="kelsonsans" align="center" value="Alpen" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 288; center: -6 3 31" color="#83E8FE" material="shader:flat" change-on-click="target: 1035 12 -1" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 244 2 31" font="kelsonsans" align="center" value="Hiroshima" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 318; center: -6 3 31" color="#83E8FE" material="shader:flat" change-on-click="target: 750 -7 20" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 244 2 31" font="kelsonsans" align="center" value="New York" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <!-- Lights and Sound -->
+      <a-entity id="mueb-lights" light="type: point; color: #ffffff; intensity: 0.6" position="0 100 0" light-halo></a-entity>
+      <a-entity light="intensity: 0.5; castShadow: true; angle: 90; decay: 2.69; penumbra: 1; type: spot; shadowCameraBottom: -5.76" position="-20.6643 -5.55091 -9.50545"></a-entity>
+      <a-entity id="light_target1" position="-22 2 -18"></a-entity>
+      <a-entity id="mueb-sound" sound="src: #sound_mueb; autoplay: true; loop: true; volume: 0;"></a-entity>
+    </a-sphere>
+    
+    
+    <!-- Scene Alps -->
+    <a-sphere id="scene-alps" src="#stars" position="500 0 0" rotation="0 0 0" radius="100">
+            
+      <!-- Scene -->
+      <a-entity gltf-model="#ground_alps" position="0 -6 0" rotation="0 90 0" scale="1 1 1"></a-entity>
+      <a-sky material="src: #sky_alps; side:double" position="0 0 0" rotation="-6.5 -65.96 59.54" radius="100"></a-sky>
+      <a-sphere radius="99" position="0 0 0" rotation="0 0 0" material="side:double; transparent:true; shader:flat; opacity: 0.8 " src="#pollution_alps"></a-sphere>
+      <a-cylinder radius="90" height="100" position="0 10 0" open-ended="true" material="side:double; transparent:true; shader:flat;" src="#mountains"></a-cylinder>
+      <a-image src="#mountain_lights" position="-2 -1.33015 83.68176" width="4" height="2.25" material="" geometry="" visible="" scale="2 2 2"></a-image>
+      
+      
+      <!-- Transition Boxes -->
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 20; phi: 233; center: 1 0 25" color="#83E8FE" material="shader:flat" change-on-click="target: 0 0 10" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 500 6 30" font="kelsonsans" align="center" value="Atacama" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 20; phi: 258; center: 1 0 25" color="#83E8FE" material="shader:flat" change-on-click="target: 244 2 31" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 500 6 30" font="kelsonsans" align="center" value="Muenchberg" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+    
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 20; phi: 283; center: 1 0 25" color="#83E8FE" material="shader:flat" change-on-click="target: 1035 12 -1" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 500 6 30" font="kelsonsans" align="center" value="Hiroshima" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 20; phi: 308; center: 1 0 25" color="#83E8FE" material="shader:flat" change-on-click="target: 750 -7 20" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 500 6 30" font="kelsonsans" align="center" value="New York" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <!-- Lights and Sound -->
+      <a-entity id="alps-lights" light="type: point; color: #ffffff; intensity: 0.6" position="0 100 0" light-halo></a-entity>
+      <a-entity id="alps-sound" sound="src: #sound_alps; autoplay: true; loop: true; volume: 0;"></a-entity>
+    </a-sphere>
+    
+    <!-- Scene New York -->
+    <a-sphere id="scene-ny" src="#stars" position="750 0 0" rotation="0 0 0" radius="100">
+            
+      <!-- Scene -->
+      <a-entity gltf-model="#ground_ny" animation-mixer="loop:repeat; duration: 240" position="8 -8 -4" rotation="0 270 0" scale="0.8 0.8 0.8"></a-entity>
+      <a-sky src="#sky_ny" position="0 0 0" rotation="-36.39 -269.57 47.4" radius="100"></a-sky>
+      <a-sphere radius="99" position="0 0 0" rotation="0 0 0" material="side:double; transparent:true; shader:flat;" src="#pollution_ny"></a-sphere>
+      <a-cylinder radius="90" height="80" position="0 30 0" rotation="0 0 0" open-ended="true" material="side:double; transparent:true; shader:flat" src="#ny_buildings"></a-cylinder>
+      
+      
+      <!-- Transition Boxes -->
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 216; center: 0 -7 20" color="#83E8FE" material="shader:flat" change-on-click="target: 0 0 10" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 750 -7 20" font="kelsonsans" align="center" value="Atacama" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 260; center: 0 -7 20" color="#83E8FE" material="shader:flat" change-on-click="target: 500 6 30" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 750 -7 20" font="kelsonsans" align="center" value="Alpen" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 330; center: 0 -7 20" color="#83E8FE" material="shader:flat" change-on-click="target: 244 2 31" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 750 -7 20" font="kelsonsans" align="center" value="Muenchberg" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 288; center: 0 -7 20" color="#83E8FE" material="shader:flat" change-on-click="target: 1035 12 -1" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 750 -7 20" font="kelsonsans" align="center" value="Hiroshima" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <!-- Lights and Sound -->
+      <a-light type="ambient" intensity="0"></a-light>
+      <a-entity id="ny-lights" light="type: point; color: #ffffff; intensity: 0.0" polar-coords="radius: 100; theta: 5; phi: 275; center: 0 -7 20" light-halo></a-entity>
+      <a-entity id="ny-lights2" light="intensity: 0.5; castShadow: true; angle: 90; decay: 2.69; penumbra: 1; type: spot; shadowCameraBottom: -5.76" position="-20.6643 -5.55091 -9.50545"></a-entity>
+      <a-entity id="ny-sound" sound="src: #sound_ny; autoplay: true; loop: true; volume: 0;"></a-entity>
+    </a-sphere>
+    
+    
+    <!-- Scene Hiroshima -->
+    <a-sphere id="scene-hiro" src="#stars" position="1000 0 0" rotation="0 0 0" radius="100">
+            
+      <!-- Scene -->
+      <a-entity gltf-model="#ground_hiro" position="8 0 -1" rotation="0 270 0" scale="0.8 0.8 0.8"></a-entity>
+      <a-sky src="#sky_hiro" position="0 0 0" rotation="-54.30 -248.26 20.49" radius="100"></a-sky>
+      <a-sphere radius="99" position="0 0 0" rotation="0 0 0" material="side:double; transparent:true; shader:flat; opacity:0.5" src="#pollution_hiro"></a-sphere>
+      
+      <!-- Transition Boxes -->
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 241; center: 35 12 -1" color="#83E8FE" material="shader:flat" change-on-click="target: 0 0 10" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 1035 12 -1" font="kelsonsans" align="center" value="Atacama" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 181; center: 35 12 -1" color="#83E8FE" material="shader:flat" change-on-click="target: 500 6 30" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 1035 12 -1" font="kelsonsans" align="center" value="Alpen" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 211; center: 35 12 -1" color="#83E8FE" material="shader:flat" change-on-click="target: 244 2 31" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 1035 12 -1" font="kelsonsans" align="center" value="Muenchberg" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+      <a-sphere radius="1" polar-coords="radius: 80; theta: 10; phi: 271; center: 35 12 -1" color="#83E8FE" material="shader:flat" change-on-click="target: 750 -7 20" hover-effect="hoverColor: #FE83F9; scaleIncrement: 1.2">
+        <a-text text-facing-camera="target: 1035 12 -1" font="kelsonsans" align="center" value="New York" width="26" position="0 2 0"></a-text>
+      </a-sphere>
+      
+
+      
+      <!-- Lights and Sound -->
+      <a-entity id="hiro-lights" light="type: ambient; color: #ffffff; intensity: 0.1" position="0 100 0" light-halo></a-entity>
+      <a-entity id="hiro-sound" sound="src: #sound_hiro; autoplay: true; loop: true; volume: 0;"></a-entity>
+    </a-sphere>
+    
+
+    <!-- Player entity with camera -->
+    <a-entity id="player" position="-500 0 0" progressive-controls movement-controls="fly: true; speed: 0.3" networked="template:#avatar-template;attachTemplateToLocal:true;">
+      <a-entity id="rightHand" laser-controls="hand: right" reload-on-button-hold></a-entity>
+      <a-entity reset-on-long-press id="leftHand" oculus-touch-controls="hand: left">
+        <a-plane id="hand_texture" src="#info_default" width="0.5225" height="0.35" position="0 0.1 -0.1" rotation="-40 0 0" material="shader:flat; transparent:true"></a-plane>
+      </a-entity>
+      <!--<a-entity camera look-controls></a-entity>-->
+      <a-entity id="camera" camera="active: true; near: 0.01; far: 150" look-controls></a-entity>
+    </a-entity>
+    
+    <!-- import javascript file for movement controls -->
+    <script src="assets/movements.js"></script>
+    <script src="assets/check_light.js"></script>
+  </a-scene>
+</body>
+</html>
